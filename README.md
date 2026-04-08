@@ -1,4 +1,4 @@
-# LoreHub - Destiny Lore Hub
+# Project-Codename-Husky
 
 A modern web application to centralize and explore all Lore Books from the Destiny universe, using the official Bungie API.
 
