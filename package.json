@@ -1,0 +1,20 @@
+{
+  "name": "lorehub",
+  "version": "1.0.0",
+  "description": "A modern web application to centralize and explore all Lore Books from the Destiny universe, using the official Bungie API.",
+  "main": "generate-cert.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pem": "^1.14.8",
+    "selfsigned": "^5.5.0"
+  }
+}

@@ -1,0 +1,77 @@
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# Dependências
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build/Dist
+dist/
+build/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Configuration Files (with API Keys)
+src/js/config.local.js
+config.local.js
+secrets.js
+api-key.txt
+api-keys.json
+
+# Cache
+.cache/
+.npm
+*.cache
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Sensível
+config.local.js
+api-key.txt
+secrets.txt
+
+# Temporários
+temp/
+tmp/
+*.temp
+
+# Documentação gerada
+docs/api/
+
+# Certificados SSL/TLS
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+server.pfx

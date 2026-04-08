@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Codiname Husky - Destiny Lore Hub</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
+</head>
+<body>
+    <div id="splash" class="splash-screen">
+        <video class="splash-video" autoplay muted loop playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1">
+            <source src="public/media/destiny-video-noaudio.mp4" type="video/mp4">
+        </video>
+        <audio id="splashMusic" class="splash-audio" preload="auto" loop>
+            <source src="public/media/Destiny-music-intro.mp3" type="audio/mpeg">
+        </audio>
+        <div class="splash-vignette"></div>
+        <div class="splash-particles">
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+        </div>
+        <div class="splash-background"></div>
+        <div class="splash-content">
+            <div class="splash-logo">Project Codiname Husky</div>
+            <p class="splash-tagline">Work in Progress</p>
+            <button id="splashEnter" class="btn btn-primary splash-cta">Explore</button>
+        </div>
+    </div>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <h1>Project Codiname Husky</h1>
+                    <p class="subtitle">Work in Progress</p>
+                </div>
+                <div class="navbar-menu">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#books">Books</a></li>
+                        <li><a href="#exotics">Exotics</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="auth-controls">
+                    <button id="loginBtn" class="btn btn-secondary btn-small">Login Bungie</button>
+                    <button id="logoutBtn" class="btn btn-secondary btn-small hidden">Logout</button>
+                    <span id="authStatus" class="auth-status">Not logged in</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <main>
+            <div id="mainView" class="view is-active">
+                <!-- Hero Section -->
+                <section id="home" class="hero">
+                    <div class="hero-content">
+                        <h2>Work in Progress</h2>
+                        <p>Work in Progress</p>
+                    </div>
+                </section>
+
+                <!-- Tarot Cards Container -->
+                <section class="tarot-cards-container">
+                    <!-- Lore Summary Card -->
+                    <div id="loreSummary" class="tarot-card-wrapper">
+                        <button id="loreSummaryCard" class="tarot-card" type="button" aria-expanded="false">
+                            <div class="tarot-card-top">
+                                <img class="tarot-emblem" src="https://www.bungie.net/img/misc/missing_icon_d2.png" alt="Lore Books" aria-hidden="true">
+                            </div>
+                            <div class="tarot-card-content">
+                                <h3>Lore Books</h3>
+                                <p id="loreSummaryCount" class="tarot-subtitle">Click to load lore books</p>
+                                <p id="loreSummaryStatus" class="tarot-status">Click the card to open the library.</p>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Exotic Gear Card -->
+                    <div id="exotics" class="tarot-card-wrapper">
+                        <button id="exoticsSummaryCard" class="tarot-card" type="button" aria-expanded="false">
+                            <div class="tarot-card-top">
+                                <img class="tarot-emblem" src="https://www.bungie.net/img/misc/missing_icon_d2.png" alt="Exotic Weapons & Armor" aria-hidden="true">
+                            </div>
+                            <div class="tarot-card-content">
+                                <h3>Exotic Weapons &amp; Armor</h3>
+                                <p id="exoticsSummaryCount" class="tarot-subtitle">Click to load exotics</p>
+                                <p id="exoticsStatus" class="tarot-status">Click the card to load exotics.</p>
+                            </div>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about" class="about-section">
+                    <h2>About Project Codiname Husky</h2>
+                    <div class="about-content">
+                        <p>
+                            Project Codiname Husky is a platform dedicated to centralizing and facilitating access 
+                            to all Lore Books from the Destiny universe, using the official Bungie API.
+                        </p>
+                        <h3>Technologies Used:</h3>
+                        <ul>
+                            <li>HTML5, CSS3, JavaScript</li>
+                            <li>Bungie.net API</li>
+                            <li>Fetch API for requests</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <section id="loreView" class="view view-hidden">
+                <div class="lore-view-header">
+                    <div>
+                        <h2>Lore Library</h2>
+                        <p id="loreViewStatus" class="section-status">Loading lore books...</p>
+                    </div>
+                    <div class="lore-view-actions">
+                        <button id="loreBackBtn" class="btn btn-secondary btn-small" type="button">Back</button>
+                    </div>
+                </div>
+
+                <div class="lore-layout">
+                    <!-- Left Sidebar -->
+                    <aside class="lore-sidebar">
+                        <div class="lore-sidebar-section">
+                            <h3 class="lore-sidebar-title">Library // Filters</h3>
+                            <div class="search-container">
+                                <input
+                                    type="text"
+                                    id="searchInput"
+                                    class="search-box"
+                                    placeholder="Search books and entries..."
+                                    autocomplete="off"
+                                    list="loreSearchSuggestions"
+                                >
+                                <datalist id="loreSearchSuggestions"></datalist>
+                            </div>
+
+                            <div class="filter-options">
+                                <select id="sortSelect" class="filter-select">
+                                    <option value="relevance">Sort by Relevance</option>
+                                    <option value="order">Sort by Default Order</option>
+                                    <option value="name">Sort by Name</option>
+                                    <option value="progress">Sort by Progress</option>
+                                    <option value="missing">Sort by Missing First</option>
+                                </select>
+                            </div>
+
+                            <div class="lore-toggle-row">
+                                <label class="lore-toggle">
+                                    <input id="loreFilterMissingOnly" type="checkbox">
+                                    <span>Missing only</span>
+                                </label>
+                                <label class="lore-toggle">
+                                    <input id="loreFilterHideCompleted" type="checkbox">
+                                    <span>Hide completed</span>
+                                </label>
+                                <label class="lore-toggle">
+                                    <input id="loreFilterShowClassified" type="checkbox">
+                                    <span>Show classified</span>
+                                </label>
+                            </div>
+
+                            <div class="lore-progress-filter">
+                                <div class="lore-progress-filter-header">
+                                    <span>Progress range</span>
+                                    <span id="loreProgressLabel" class="lore-progress-label">0% – 100%</span>
+                                </div>
+                                <input id="loreProgressMin" type="range" min="0" max="100" value="0">
+                                <input id="loreProgressMax" type="range" min="0" max="100" value="100">
+                            </div>
+                        </div>
+
+                        <div class="lore-sidebar-section">
+                            <div class="category-filters lore-category-list" id="categoryFilters">
+                                <span class="category-label">Categories:</span>
+                                <span class="category-loading">Load lores to see categories.</span>
+                            </div>
+                        </div>
+
+                        <div class="lore-sidebar-section">
+                            <div class="subcategory-filters lore-subcategory-list" id="subcategoryFilters">
+                                <span class="category-label">Subcategories:</span>
+                                <span class="category-loading">Select a category to see subfilters.</span>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Right Content -->
+                    <main class="lore-content">
+                        <div class="lore-content-header">
+                            <div id="loreBreadcrumb" class="lore-breadcrumb">Lore</div>
+                            <div id="loreSummaryBar" class="lore-summary-bar"></div>
+                        </div>
+
+                        <!-- Loading Indicator -->
+                        <div id="loadingIndicator" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>Loading Lore Books...</p>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div id="errorMessage" class="error-message hidden"></div>
+
+                        <!-- Quick sections -->
+                        <section id="loreContinueSection" class="lore-quick-section hidden">
+                            <div class="lore-quick-header">
+                                <h3>Continue</h3>
+                            </div>
+                            <div id="loreContinueList" class="lore-quick-list"></div>
+                        </section>
+
+                        <section id="loreMissingSection" class="lore-quick-section hidden">
+                            <div class="lore-quick-header">
+                                <h3>Missing</h3>
+                                <span class="lore-quick-subtitle">Top entries not acquired</span>
+                            </div>
+                            <div id="loreMissingList" class="lore-missing-list"></div>
+                        </section>
+
+                        <!-- Lore Books Grid -->
+                        <section id="books" class="lore-books-section">
+                            <h2 id="booksTitle">Lore Books</h2>
+                            <div id="loreGrid" class="lore-grid">
+                                <!-- Dynamically loaded content -->
+                            </div>
+                            <div id="pagination" class="lore-results-footer hidden">
+                                <span id="paginationInfo" class="pagination-info"></span>
+                                <button id="loreLoadMoreBtn" class="btn btn-secondary" type="button">Load more</button>
+                            </div>
+                        </section>
+                    </main>
+                </div>
+            </section>
+
+            <section id="exoticsView" class="view view-hidden">
+                <div class="exotics-view-header">
+                    <div>
+                        <h2>Exotic Collection</h2>
+                        <p id="exoticsViewStatus" class="section-status">Loading exotics...</p>
+                    </div>
+                    <button id="exoticsBackBtn" class="btn btn-secondary btn-small" type="button">Back</button>
+                </div>
+                
+                <div class="exotics-layout">
+                    <!-- Left Sidebar -->
+                    <aside class="exotics-sidebar">
+                        <div class="exotics-sidebar-section">
+                            <h3 class="exotics-sidebar-title">Exotic // Weapons</h3>
+                            
+                            <!-- Type Tabs -->
+                            <div class="exotics-type-tabs">
+                                <button id="exoticsWeaponsTab" class="exotics-type-tab active" data-type="weapon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/>
+                                    </svg>
+                                </button>
+                                <button id="exoticsArmorTab" class="exotics-type-tab" data-type="armor">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Weapon Slot Filters -->
+                        <div id="exoticsWeaponSlots" class="exotics-sidebar-section">
+                            <button class="exotics-slot-button active" data-slot="all">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">All</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                            <button class="exotics-slot-button" data-slot="kinetic">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M17.66 7.93L12 2.27 6.34 7.93c-3.12 3.12-3.12 8.19 0 11.31C7.9 20.8 9.95 21.58 12 21.58c2.05 0 4.1-.78 5.66-2.34 3.12-3.12 3.12-8.19 0-11.31z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">Kinetic</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                            <button class="exotics-slot-button" data-slot="energy">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">Energy</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                            <button class="exotics-slot-button" data-slot="power">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">Power</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Armor Class Filters -->
+                        <div id="exoticsArmorClasses" class="exotics-sidebar-section hidden">
+                            <button class="exotics-slot-button active" data-class="all">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">All</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                            <button class="exotics-slot-button" data-class="titan">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">Titan</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                            <button class="exotics-slot-button" data-class="hunter">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">Hunter</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                            <button class="exotics-slot-button" data-class="warlock">
+                                <div class="slot-icon-wrapper">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                                    </svg>
+                                </div>
+                                <div class="slot-info">
+                                    <span class="slot-name">Warlock</span>
+                                    <span class="slot-count">0 / 0</span>
+                                </div>
+                            </button>
+                        </div>
+                    </aside>
+
+                    <!-- Right Content -->
+                    <main class="exotics-content">
+                        <div id="exoticsSeasonsList" class="exotics-seasons-list">
+                            <p class="exotics-loading">Loading exotics...</p>
+                        </div>
+                    </main>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Project Codiname Husky - Unofficial Project | Data provided by Bungie.net</p>
+        </div>
+    </footer>
+
+    <!-- Modal for viewing lore -->
+    <div id="loreModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="modalBody">
+                <!-- Lore content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Exotic Tooltip -->
+    <div id="exoticTooltip" class="exotic-tooltip hidden">
+        <div class="exotic-tooltip-content">
+            <!-- Tooltip content will be inserted here -->
+        </div>
+    </div>
+
+    <!-- Exotic Details Modal -->
+    <div id="exoticModal" class="exotic-modal hidden">
+        <div class="exotic-modal-overlay"></div>
+        <div class="exotic-modal-content">
+            <button class="exotic-modal-close">&times;</button>
+            <div id="exoticModalBody">
+                <!-- Exotic details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Load environment variables -->
+    <script src="src/js/env-loader.js"></script>
+    
+    <!-- Application scripts -->
+    <script src="src/js/config.js"></script>
+    <script src="src/js/api-handler.js"></script>
+    <script src="src/js/ui-manager.js"></script>
+    <script src="src/js/main.js"></script>
+</body>
+</html>
