@@ -4,7 +4,7 @@ A modern web application to centralize and explore all Lore Books from the Desti
 
 ## 🎮 About
 
-LoreHub is a fan-made project dedicated to aggregating all Lore Books from the Destiny game in one place, making it easy to search, filter and read the expanded story of the universe.
+Project-Codename-Husky is a fan-made project dedicated to aggregating all Lore Books from the Destiny game in one place, making it easy to search, filter and read the expanded story of the universe.
 
 ## ✨ Features
 
